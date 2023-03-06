@@ -1,0 +1,62 @@
+show:
+  show_conf:
+    arguments: 'NONE'
+    commands:
+      - show configuration
+
+  show_version:
+    arguments: 'NONE'
+    commands:
+      - show version
+
+  show_interface_brief:
+    arguments: 'NONE'
+    commands:
+      - show interfaces
+conf:
+  SAVE:
+    arguments: 'NONE'
+    commands:
+      - commit
+      - save
+
+  conf_interface:
+    arguments:
+        nom_interface: 'ARG0'
+        ip: 'ARG1'
+        cidr_netmask: 'ARG2'
+        description: 'ARG3'
+    commands:
+      - set interface ethernet ARG0 address 'ARG1/ARG2'
+      - set interface ethernet ARG0 description 'ARG3' 
+      
+
+  conf_static_route:
+    arguments:
+        ip: 'ARG0'
+        netmask: 'ARG1'
+        next_hop: 'ARG2'
+    commands:
+      - ip route ARG0 ARG1 ARG2
+
+  initialisation bgp:
+    arguments:
+        AS number: 'ARG0'
+    commands:
+      - set protocols bgp ARG0
+
+  neighbor bgp:
+    arguments:
+        bgp: 'ARG0'
+        neighbor address: 'ARG1'
+        remote_as: 'ARG2'
+    commands:
+      - set protocols bgp ARG0 neighbor ARG1 remote-as ARG2
+
+  network bgp:
+    arguments:
+        bgp: 'ARG0'
+        network address: 'ARG1'
+        cidr mask value: 'ARG2'
+    commands:
+      - set protocols bgp ARG0 network ARG1/ARG2

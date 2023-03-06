@@ -1,0 +1,136 @@
+show:
+  show_conf:
+    arguments: 'NONE'
+    commands:
+      - show run
+      
+  show with filter:
+    arguments:
+        filter: 'ARG0'
+    commands:
+      - show run | i  ARG0
+  
+  ping:
+    arguments:
+        ip desination: 'ARG0'
+    commands:
+      - ping ARG0
+
+  show_routing_table:
+    arguments: 'NONE'
+    commands:
+      - show ip route
+
+  show_version:
+    arguments: 'NONE'
+    commands:
+      - show version
+
+  show_interface_brief:
+    arguments: 'NONE'
+    commands:
+      - show ip interface brief
+
+  show_ospf_route:
+    arguments: 'NONE'
+    commands:
+      - show ip route ospf
+
+  show_ospf_neighbor:
+    arguments: 'NONE'
+    commands:
+      - show ip ospf neighbor
+
+  show_ospf_database:
+    arguments: 'NONE'
+    commands:
+      - show ip ospf database
+
+  show_mpls_traffic_eng_tunnels:
+    arguments: 'NONE'
+    commands:
+      - show mpls traffic-eng tunnels
+
+  show_mpls_forward_table:
+    arguments: 'NONE'
+    commands:
+      - show mpls forwarding-table
+
+  show_rip:
+    arguments: 'NONE'
+    commands:
+      - show run | s router rip
+
+  show_route_rip:
+    arguments: 'NONE'
+    commands:
+      - show ip route rip
+
+  show_bgp_all:
+    arguments: 'NONE'
+    commands:
+      - show ip bgp all
+
+conf:
+  conf_interface:
+    arguments:
+        nom_interface: 'ARG0'
+        ip: 'ARG1'
+        netmask: 'ARG2'
+        description: 'ARG3'
+    commands:
+      - interface ARG0
+      - ip address ARG1 ARG2
+      - description ARG3
+
+  conf_static_route:
+    arguments:
+        ip: 'ARG0'
+        netmask: 'ARG1'
+        next_hop: 'ARG2'
+    commands:
+      - ip route ARG0 ARG1 ARG2
+    
+  MPLS:
+    arguments: 'NONE'
+    commands:
+      - mpls ip
+
+  conf_ripv2:
+    arguments:
+        network: 'ARG0'
+    commands:
+      - router rip
+      - version 2
+      - no auto-summary
+      - network ARG0
+
+  conf_ospf:
+    arguments:
+        process_id: 'ARG0'
+        ip: 'ARG1'
+        wildcard_mask: 'ARG2'
+        area: 'ARG3'
+    commands:
+      - router ospf ARG0
+      - network ARG1 ARG2 area ARG3
+      - auto-cost reference-bandwidth 10000
+
+  initialisation bgp:
+    arguments:
+        bgp: 'ARG0'
+        router_id: 'ARG1'
+        neighbor: 'ARG2'
+        remote_as: 'ARG3'
+    commands:
+      - router bgp ARG0
+      - bgp router-id ARG1
+      - neighbor ARG2 remote-as ARG3
+
+  network bgp:
+    arguments:
+        bgp: 'ARG0'
+        network: 'ARG1'
+    commands:
+      - router bgp ARG0
+      - network ARG1

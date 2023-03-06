@@ -1,0 +1,45 @@
+show:
+  ESXI hardware:
+    arguments: 'NONE'
+    commands:
+      - esxcli hardware ipmi sdr list
+  Stockage:
+    arguments: 'NONE'
+    commands:
+      - df -H
+  IP:
+    arguments: 'NONE'
+    commands:
+      - ip link
+      - ip route
+  Speedtest:
+    arguments: 'NONE'
+    commands:
+      - speedtest
+
+  Docker:
+    arguments: 'NONE'
+    commands:
+      - docker ps -a
+      - docker stats -a --no-stream
+      - docker network ls
+
+  Etat computes:
+    arguments: 'NONE'
+    commands:
+      - ps aux    
+
+conf:
+  start conteneur:
+    arguments:
+        nom: 'ARG0'
+    commands:
+      - docker start --name ARG0
+
+  stop conteneur:
+    arguments:
+        nom: 'ARG0'
+    commands:
+      - docker stop --name ARG0
+
+  

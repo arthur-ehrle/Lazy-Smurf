@@ -1,0 +1,155 @@
+show:
+  Verif_conf:
+      arguments: 'NONE'
+      commands:
+      - display ip routing-table
+      - display current-configuration
+
+  show_interface_brief:
+      arguments: 'NONE'
+      commands:
+      - display brief interface
+      - display ip interface brief
+  
+  MPLS_verif:
+      arguments: 'NONE'
+      commands:
+      - display current-configuration configuration mpls
+      - display current-configuration configuration mpls-ldp
+      - display mpls interface
+      - display mpls ldp interface
+      - display mpls ldp peer
+      - display mpls ldp session
+      - display mpls route-state
+  
+  Vrrp_verif:
+      arguments: 'NONE'
+      commands:
+      - display vrrp verbose
+      - display vrrp
+
+  OSPF_verif:
+      arguments: 'NONE'
+      commands:
+      - display ospf peer verbose
+      - display ospf routing-table
+      - display ospf lsdb
+      - display ospf abr-asbr
+
+  BGP_verif:
+      arguments: 'NONE'
+      commands:
+      - display bgp peer 
+      - display ospf routing-table
+
+conf:
+  Mode_conf:
+      arguments: 'NONE'
+      commands:
+      - system-view
+      
+  Conf_interfaces:
+      arguments: 
+        type_interface: 'ARG0'
+        number_interface: 'ARG1'
+        ip_interfaces: 'ARG2'
+        mask_interface: 'ARG3'
+      commands:
+      - interface ARG0 ARG1
+      - ip address ARG2 ARG3
+      - speed auto
+      - duplex auto
+      - undo shutdown
+      
+  Vrrp_conf:
+      arguments:
+        vrrp_version: 'ARG0'
+        vrrp_group: 'ARG1'
+        virtual_address: 'ARG2'
+        vrrp_priority: 'ARG3'
+        vrrp_preemt: 'ARG4'
+        vrrp_delay: 'ARG5'
+      commands:
+      - interface vrrp ARG0
+      - vrrp vrid ARG1 virtual_ip ARG2
+      - vrrp vrid ARG1 virtual_ip ARG3
+      - vrrp vrid ARG1 virtual_ip ARG4
+      - vrrp vrid ARG1 preempt-mode timer delay ARG5
+      
+  Routage_static:
+      arguments:
+        ip: 'ARG0'
+        mask: 'ARG1'
+        next_hop: 'ARG2'
+      commands:
+      - ip static ARG0 ARG1 ARG2
+      
+  loopback_conf:
+      arguments:
+        loop_number: 'ARG0'
+        loop_ip: 'ARG1'
+        loop_mask: 'ARG2'
+      commands:
+      - interface loopback ARG0
+      - ip address ARG1 ARG2
+      - undo shutdown
+
+  OSPF_conf:
+      arguments:
+        ospf_area: 'ARG0'
+        router_id: 'ARG1'
+        ip: 'ARG2'
+        mask: 'ARG3'
+      commands:
+      - ospf ARG0 router-id ARG1
+      - area ARG1
+      - network ARG2 ARG3
+      
+  BGP_conf:
+      arguments:
+        bgp_area: 'ARG0'
+        router_id: 'ARG1'
+        ip: 'ARG2'
+        bgp_area_nei: 'ARG3'
+        ip_neig: 'ARG4'
+        mask_neig: 'ARG5'
+      commands:
+      - bgp ARG0
+      - bgp router-id ARG1
+      - peer  ARG2 as ARG3
+      - network ARG4/ARG5
+      
+  Import_bgp_ospf_static:
+      arguments: 'NONE'
+      commands:
+      - import-route ospf
+      - import-route bgp
+      - import-route direct
+      - import-route static
+      
+  MPLS_conf:
+      arguments: 'NONE'
+      commands:
+      - mpls
+      - mpls ldp
+
+  Out_conf:
+      arguments: 'NONE'
+      commands:
+      - quit
+      
+  Sauveg_conf:
+      arguments: 'NONE'
+      commands:
+      - save
+      
+  Verif_ping:
+      arguments: 'ARG0'
+      commands:
+      - ping ARG0
+      
+  Reset_conf:
+      arguments: 'NONE'
+      commands:
+      - reset saved-config
+     

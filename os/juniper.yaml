@@ -1,0 +1,81 @@
+show:
+  show_conf:
+    arguments: 'NONE'
+    commands:
+      - cli
+      - show conf | display set
+      - show system user
+      - show system alarms
+  show_version:
+    arguments: 'NONE'
+    commands:
+      - show version
+  show_interface_brief:
+    arguments: 
+        nom_interface: 'ARG0'
+    commands:
+      - show configuration groups | display set
+      - show configuration interface | display set | match ARG0
+      - show interfaces description ARG0 | display set
+  show_vlans_brief:
+    arguments: 
+        id_vlan: 'ARG0'
+    commands:
+      - show vlans ARG0
+      - show configuration vlans | match ARG0 | display set
+conf:
+  conf_groups:
+    arguments:
+        nom_groups: 'ARG0'
+        nom_mode: 'ARG1'
+    commands:
+      - set groups ARG0 interfaces <*> description "ARG0"
+      - set groups ARG0 interfaces <*> mtu 9162
+      - set groups ARG0 interfaces <*> unit 0 family ethernet-switching interface-mode ARG1
+  conf_interface:
+    arguments:
+        nom_interface: 'ARG0'
+        ip_mask: 'ARG1'
+        description: 'ARG2'
+        nom_groups: 'ARG3'
+    commands:
+      - set interfaces ARG0 ether-options 802.3ad
+      - set interfaces ARG0 description ARG2
+      - set interfaces ARG0 apply-groups ARG3
+      - set interfaces ARG0 unit 0 family inet address ARG1
+  conf_vlans:
+    arguments:
+        id_vlan: 'ARG0'
+        desc_vlans: 'ARG1'
+        nom_interface: 'ARG2'
+    commands:
+      - set vlans vARG0 vlan-id ARG0
+      - set vlans vARG0 description ARG1
+      - set interface ARG2 unit 0 family ethernet-switching vlan members ARG0
+  conf_agregat:
+    arguments:
+        id_agregat: 'ARG0'
+        nom_groups: 'ARG1'
+        nom_interface: 'ARG2'
+        id_vlan: 'ARG3'
+        ip_mask: 'ARG4'
+    commands:
+      - set interfaces aeARG0 apply-groups ARG1
+      - set interfaces aeARG0 description aeARG0
+      - set interfaces aeARG0 aggregated-ether-options minimum-links 1
+      - set interfaces aeARG0 unit ARG3 vlan-id ARG3
+      - set interfaces aeARG0 unit ARG3 family inet address ARG4
+  go_back_conf:
+    arguments: 'NONE'
+    commands:
+      - rollback
+  Verif_conf:
+    arguments: 'NONE'
+    commands:
+      - show | compare
+      - commit check
+  Sauveg_conf:
+    arguments: 'NONE'
+    commands:
+      - commit
+   
